@@ -35,6 +35,9 @@ void Motor::move() {
         ledcWrite(_channel, calculatePWM( _speed));
     }
 }
+void Motor::setSpeed(int speed) {
+    _speed = speed;
+}
 
 int Motor::calculatePWM(int speed) {  // -80~80
     // 20ms周期，高电平0.5-2.5ms，对应0-180度角度

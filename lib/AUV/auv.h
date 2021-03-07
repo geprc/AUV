@@ -1,24 +1,27 @@
 #ifndef AUV_H
 #define AUV_H
 #include "motor.h"
+/**
+ * 34 35 36 39只能输出
+ */
 
-#define MOTOR_1_PIN 36
-#define MOTOR_2_PIN 39
-#define MOTOR_3_PIN 32
-#define MOTOR_4_PIN 33
-#define MOTOR_5_PIN 34
-#define MOTOR_6_PIN 35
-#define MOTOR_7_PIN 25
-#define MOTOR_8_PIN 26
+#define MOTOR_1_PIN 32
+#define MOTOR_2_PIN 33
+#define MOTOR_3_PIN 25
+#define MOTOR_4_PIN 26
+#define MOTOR_5_PIN 27
+#define MOTOR_6_PIN 14
+#define MOTOR_7_PIN 12
+#define MOTOR_8_PIN 13
 
-#define MOTOR_1_CHANNEL 0
-#define MOTOR_2_CHANNEL 1
-#define MOTOR_3_CHANNEL 2
-#define MOTOR_4_CHANNEL 3
-#define MOTOR_5_CHANNEL 4
-#define MOTOR_6_CHANNEL 5
-#define MOTOR_7_CHANNEL 6
-#define MOTOR_8_CHANNEL 7
+#define MOTOR_1_CHANNEL 8
+#define MOTOR_2_CHANNEL 9
+#define MOTOR_3_CHANNEL 10
+#define MOTOR_4_CHANNEL 11
+#define MOTOR_5_CHANNEL 12
+#define MOTOR_6_CHANNEL 13
+#define MOTOR_7_CHANNEL 14
+#define MOTOR_8_CHANNEL 15
 
 #define MOTOR_1_INVERSE 0
 #define MOTOR_2_INVERSE 0

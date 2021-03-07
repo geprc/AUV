@@ -26,55 +26,55 @@ void motorInit() {
 //蓝电机逆时针转喷水
 //前进
 void forward(int speed) {
-    motor1.addSpeed(-speed);
-    motor2.addSpeed(-speed);
-    motor3.addSpeed(-speed);
-    motor4.addSpeed(-speed);
+    motor1.setSpeed(-speed);
+    motor2.setSpeed(-speed);
+    motor3.setSpeed(-speed);
+    motor4.setSpeed(-speed);
 }
 //后退
 void backward(int speed) {
-    motor1.addSpeed(speed);
-    motor2.addSpeed(speed);
-    motor3.addSpeed(speed);
-    motor4.addSpeed(speed);
+    motor1.setSpeed(speed);
+    motor2.setSpeed(speed);
+    motor3.setSpeed(speed);
+    motor4.setSpeed(speed);
 }
 
 //上浮
 void floating(int speed) {
-    motor5.addSpeed(-speed);
-    motor6.addSpeed(speed);
-    motor7.addSpeed(speed);
-    motor8.addSpeed(-speed);
+    motor5.setSpeed(-speed);
+    motor6.setSpeed(speed);
+    motor7.setSpeed(speed);
+    motor8.setSpeed(-speed);
 }
 
 //下潜
 void diving(int speed) {
-    motor5.addSpeed(speed);
-    motor6.addSpeed(-speed);
-    motor7.addSpeed(-speed);
-    motor8.addSpeed(speed);
+    motor5.setSpeed(speed);
+    motor6.setSpeed(-speed);
+    motor7.setSpeed(-speed);
+    motor8.setSpeed(speed);
 }
 
 //俯仰
 void pitch(int speed) {
-    motor5.addSpeed(speed);
-    motor6.addSpeed(-speed);
-    motor7.addSpeed(speed);
-    motor8.addSpeed(-speed);
+    motor5.setSpeed(speed);
+    motor6.setSpeed(-speed);
+    motor7.setSpeed(speed);
+    motor8.setSpeed(-speed);
 }
 
 //横滚
 void roll(int speed) {
-    motor5.addSpeed(-speed);
-    motor6.addSpeed(-speed);
-    motor7.addSpeed(speed);
-    motor8.addSpeed(speed);
+    motor5.setSpeed(-speed);
+    motor6.setSpeed(-speed);
+    motor7.setSpeed(speed);
+    motor8.setSpeed(speed);
 }
 
 //偏航
 void yaw(int speed) {
-    motor1.addSpeed(-speed);
-    motor2.addSpeed(speed);
-    motor3.addSpeed(-speed);
-    motor4.addSpeed(speed);
+    motor1.setSpeed(-speed);
+    motor2.setSpeed(speed);
+    motor3.setSpeed(-speed);
+    motor4.setSpeed(speed);
 }
