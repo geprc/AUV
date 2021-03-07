@@ -8,6 +8,11 @@
 #define MOTOR_DEBUG
 // #define IMU_DEBUG
 
+float initialDepth = 0;
+float currentDepth = 0;
+float targetDepth = 0;
+float errorDepth = 0;
+
 float initialAnglePitch = 0;
 float initialAngleRoll = 0;
 float initialAngleYaw = 0;
@@ -16,6 +21,7 @@ float currentAngleRoll = 0;
 float currentAngleYaw = 0;
 float errorAnglePitch = 0;
 float errorAngleRoll = 0;
+float errorAngleYaw = 0;
 
 int pAnglePitch = 5;
 int iAnglePitch = 0;
@@ -26,6 +32,7 @@ int dAngleRoll = 0;
 int pAngleYaw = 5;
 int iAngleYaw = 0;
 int dAngleYaw = 0;
+int pDepth = 0;
 
 int speedMotor1 = 0;
 int speedMotor2 = 0;
@@ -69,17 +76,15 @@ void setup() {
 }
 
 void loop() {
-
-/**
- * IMU数据处理，计算出误差
- */
+    /**
+     * 传感器数据处理，计算出误差
+     */
     JY901.GetAngle();
     currentAnglePitch = (float)JY901.stcAngle.Angle[0] / 32768 * 180;
     currentAngleRoll = (float)JY901.stcAngle.Angle[1] / 32768 * 180;
-    float errorAnglePitch =
-        constrain(currentAnglePitch - initialAnglePitch, -50, 50);
-    float errorAngleRoll =
-        constrain(currentAngleRoll - initialAngleRoll, -50, 50);
+    errorAnglePitch = constrain(currentAnglePitch - initialAnglePitch, -50, 50);
+    errorAngleRoll = constrain(currentAngleRoll - initialAngleRoll, -50, 50);
+    errorDepth = constrain(currentDepth - targetDepth, -1.0, 1.0);
 #ifdef IMU_DEBUG
     Serial.print("errorAngle Pitch/Roll:");
     Serial.print(errorAnglePitch);
@@ -87,13 +92,17 @@ void loop() {
     Serial.println(errorAngleRoll);
 #endif
 
-/**
- * 电机控制
- */
-    speedMotor5 = int( pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll);
-    speedMotor6 = int(-pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll);
-    speedMotor7 = int( pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll);
-    speedMotor8 = int(-pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll);
+    /**
+     * 电机控制
+     */
+    speedMotor5 =
+        int(pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll + pDepth * errorDepth);
+    speedMotor6 =
+        int(-pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll - pDepth * errorDepth);
+    speedMotor7 =
+        int(pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll - pDepth * errorDepth);
+    speedMotor8 =
+        int(-pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll + pDepth * errorDepth);
     motor5.setSpeed(speedMotor5);
     motor5.move();
     motor6.setSpeed(speedMotor6);
