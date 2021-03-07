@@ -26,6 +26,7 @@ int dAngleRoll = 0;
 int pAngleYaw = 5;
 int iAngleYaw = 0;
 int dAngleYaw = 0;
+
 int speedMotor1 = 0;
 int speedMotor2 = 0;
 int speedMotor3 = 0;

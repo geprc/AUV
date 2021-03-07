@@ -14,8 +14,8 @@
 #define MOTOR_7_PIN 12
 #define MOTOR_8_PIN 13
 
-#define MOTOR_1_CHANNEL 8
-#define MOTOR_2_CHANNEL 9
+#define MOTOR_1_CHANNEL  8
+#define MOTOR_2_CHANNEL  9
 #define MOTOR_3_CHANNEL 10
 #define MOTOR_4_CHANNEL 11
 #define MOTOR_5_CHANNEL 12
@@ -28,9 +28,9 @@
 #define MOTOR_3_INVERSE 0
 #define MOTOR_4_INVERSE 0
 #define MOTOR_5_INVERSE 0
-#define MOTOR_6_INVERSE 0
-#define MOTOR_7_INVERSE 0
-#define MOTOR_8_INVERSE 0
+#define MOTOR_6_INVERSE 1
+#define MOTOR_7_INVERSE 1
+#define MOTOR_8_INVERSE 1
 
 extern Motor motor1;
 extern Motor motor2;
