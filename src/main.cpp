@@ -8,6 +8,8 @@
 #define MOTOR_DEBUG
 // #define IMU_DEBUG
 
+int forwardSpeed = 0;
+
 float initialDepth = 0;
 float currentDepth = 0;
 float targetDepth = 0;
