@@ -25,10 +25,10 @@ float errorAnglePitch = 0;
 float errorAngleRoll = 0;
 float errorAngleYaw = 0;
 
-int pAnglePitch = 5;
+int pAnglePitch = 1;
 int iAnglePitch = 0;
 int dAnglePitch = 0;
-int pAngleRoll = 5;
+int pAngleRoll = 1;
 int iAngleRoll = 0;
 int dAngleRoll = 0;
 int pAngleYaw = 5;
