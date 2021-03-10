@@ -54,9 +54,6 @@ void setup() {
     Serial.print("Time:20");
     // cam.begin(115200, SERIAL_8N1, 34, 4);
     // prm.begin(115200, SERIAL_8N1, 35, 0);
-    pinMode(5, OUTPUT);
-    ledcSetup(2, 50, 10);
-    ledcAttachPin(5, 2);
     motorInit();
 #ifdef MOTOR_DEBUG
     Serial.println("motor init");
