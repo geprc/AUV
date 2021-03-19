@@ -1,14 +1,14 @@
 #include <Arduino.h>
 #include <HardwareSerial.h>
 
+// #include "ESP32Servo.h"
 #include "JY901.h"
 #include "auv.h"
-#include "motor.h"
-
+// #include "motor.h"
 #define MOTOR_DEBUG
 // #define IMU_DEBUG
 
-int forwardSpeed = 5;
+int forwardSpeed = 0;
 
 float initialDepth = 0;
 float currentDepth = 0;
@@ -47,13 +47,14 @@ int speedMotor8 = 0;
 
 HardwareSerial cam(1);
 HardwareSerial prm(2);
-
+// Servo myservo;
 void setup() {
     Serial.begin(115200);
+    delay(1000);
     JY901.StartIIC();
-    Serial.print("Time:20");
-    // cam.begin(115200, SERIAL_8N1, 34, 4);
-    // prm.begin(115200, SERIAL_8N1, 35, 0);
+    cam.begin(115200, SERIAL_8N1, 34, 4);
+    prm.begin(115200, SERIAL_8N1, 35, 0);
+    delay(200);
     motorInit();
 #ifdef MOTOR_DEBUG
     Serial.println("motor init");
@@ -82,12 +83,16 @@ void loop() {
     JY901.GetAngle();
     currentAnglePitch = (float)JY901.stcAngle.Angle[0] / 32768 * 180;
     currentAngleRoll = (float)JY901.stcAngle.Angle[1] / 32768 * 180;
-    currentDepth = prm.readStringUntil('\n').substring(9, 14).toFloat();
-    errorAngleYaw = cam.readStringUntil('\n').substring(0, 2).toFloat();
-    errorAnglePitch = constrain(currentAnglePitch - initialAnglePitch, -50, 50);
-    errorAngleRoll = constrain(currentAngleRoll - initialAngleRoll, -50, 50);
-    errorDepth = constrain(currentDepth - targetDepth, -1.0, 1.0);
-    errorDepth = constrain(targetDepth - currentDepth, -0.1, 0.1);
+    // currentDepth = prm.readStringUntil('\n').substring(9,14).toFloat();
+    // String depth = prm.readStringUntil('\n');
+    // Serial.print(depth);
+
+    // Serial.println(currentDepth);
+    // errorAngleYaw = cam.readStringUntil('\n').substring(0, 2).toFloat();
+    errorAnglePitch = constrain(currentAnglePitch - initialAnglePitch, -10, 10);
+    errorAngleRoll = constrain(currentAngleRoll - initialAngleRoll, -10, 10);
+    // errorDepth = constrain(currentDepth - targetDepth, -0.2, 0.2);
+//     errorDepth = constrain(targetDepth - currentDepth, -0.2, 0.2);
 #ifdef IMU_DEBUG
     Serial.print("errorAngle Pitch/Roll:");
     Serial.print(errorAnglePitch);
@@ -98,38 +103,39 @@ void loop() {
     /**
      * 电机控制
      */
-    speedMotor1 = int(forwardSpeed + errorAngleYaw * pAngleYaw);
-    speedMotor2 = int(forwardSpeed - errorAngleYaw * pAngleYaw);
-    speedMotor3 = int(forwardSpeed + errorAngleYaw * pAngleYaw);
-    speedMotor4 = int(forwardSpeed - errorAngleYaw * pAngleYaw);
-    speedMotor5 =
+    speedMotor1 =
+        constrain(int(forwardSpeed + errorAngleYaw * pAngleYaw), -8, 8);
+    speedMotor2 =
+        constrain(int(forwardSpeed - errorAngleYaw * pAngleYaw), -8, 8);
+    speedMotor3 =
+        constrain(int(forwardSpeed + errorAngleYaw * pAngleYaw), -8, 8);
+    speedMotor4 =
+        constrain(int(forwardSpeed - errorAngleYaw * pAngleYaw), -8, 8);
+
+    speedMotor5 = constrain(
         int(pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll +
-            pDepth * errorDepth + pDepth * errorDepth);
-    speedMotor6 =
+            pDepth * errorDepth + pDepth * errorDepth),
+        -8, 8);
+    speedMotor6 = constrain(
         int(-pAnglePitch * errorAnglePitch - pAngleRoll * errorAngleRoll -
-            pDepth * errorDepth - pDepth * errorDepth);
-    speedMotor7 =
+            pDepth * errorDepth - pDepth * errorDepth),
+        -8, 8);
+    speedMotor7 = constrain(
         int(pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll -
-            pDepth * errorDepth - pDepth * errorDepth);
-    speedMotor8 =
+            pDepth * errorDepth - pDepth * errorDepth),
+        -8, 8);
+    speedMotor8 = constrain(
         int(-pAnglePitch * errorAnglePitch + pAngleRoll * errorAngleRoll +
-            pDepth * errorDepth + pDepth * errorDepth);
-    motor1.setSpeed(speedMotor1);
-    motor1.move();
-    motor2.setSpeed(speedMotor2);
-    motor2.move();
-    motor3.setSpeed(speedMotor3);
-    motor3.move();
-    motor4.setSpeed(speedMotor4);
-    motor4.move();
-    motor5.setSpeed(speedMotor5);
-    motor5.move();
-    motor6.setSpeed(speedMotor6);
-    motor6.move();
-    motor7.setSpeed(speedMotor7);
-    motor7.move();
-    motor8.setSpeed(speedMotor8);
-    motor8.move();
+            pDepth * errorDepth + pDepth * errorDepth),
+        -8, 8);
+    motor1.write(speedMotor1 + 95);
+    motor2.write(speedMotor2 + 95);
+    motor3.write(speedMotor3 + 95);
+    motor4.write(speedMotor4 + 95);
+    motor5.write(speedMotor5 + 95);
+    motor6.write(speedMotor6 + 95);
+    motor7.write(speedMotor7 + 95);
+    motor8.write(speedMotor8 + 95);
 #ifdef MOTOR_DEBUG
     Serial.print("1234 speed: ");
     Serial.print(speedMotor1);
@@ -148,5 +154,5 @@ void loop() {
     Serial.print(" ");
     Serial.println(speedMotor8);
 #endif
-    // delay(50);
+    //     delay(50);
 }

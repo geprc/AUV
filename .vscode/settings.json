@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "*.rmd": "markdown",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "*.hx": "cpp",
+        "*.hxxx": "cpp"
     }
 }

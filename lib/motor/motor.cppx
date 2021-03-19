@@ -4,7 +4,7 @@
 
 Motor::Motor(){
 
-};
+}
 
 Motor::~Motor() { detach(); }
 
@@ -14,7 +14,7 @@ void Motor::attach(int pin, int channel, int isInverse) {
     _isInverse = isInverse;
     ledcSetup(_channel, 50, 10);
     ledcAttachPin(_pin, _channel);
-    ledcWrite(_channel, 511);  //电机速度为0
+    // ledcWrite(_channel, 76.8);  //电机速度为0
 }
 
 void Motor::detach() {}
@@ -29,7 +29,7 @@ void Motor::addSpeed(int value) {
     }
 }
 void Motor::move() {
-    if (_isInverse) {
+    if (_isInverse == 1) {
         ledcWrite(_channel, calculatePWM(-_speed));
     } else {
         ledcWrite(_channel, calculatePWM( _speed));
@@ -39,12 +39,14 @@ void Motor::setSpeed(int speed) {
     _speed = speed;
 }
 
-int Motor::calculatePWM(int speed) {  // -80~80
+float Motor::calculatePWM(int speed) {  // -80~80
     // 20ms周期，高电平0.5-2.5ms，对应0-180度角度
-    speed += 90;
-    const float min = 25.6;  //对应0.5ms（0.5ms/(20ms/1024）)
-    const float max = 128;   //对应2.5ms
-    if (speed < 0) speed = 0;
-    if (speed > 180) speed = 180;
-    return (int)(((max - min) / 180) * speed + min);
+    int mSpeed = speed + 90;
+    const float min = 51.2;  //对应0.5ms（0.5ms/(20ms/1024）)
+    const float max = 102.4;   //对应2.5ms
+    if (mSpeed < 0) mSpeed = 0;
+    if (mSpeed > 180) mSpeed = 180;
+    float duty = ((max - min) / 180) * mSpeed + min;
+    // Serial.println(duty);
+    return duty;
 }

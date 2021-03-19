@@ -18,7 +18,7 @@ class Motor {
     void addSpeed(int value);
     void setSpeed(int speed);
     void move();
-    int calculatePWM(int speed);
+    float calculatePWM(int speed);
 };
 
 
