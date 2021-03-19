@@ -32,59 +32,29 @@ void motorInit() {
     motor6.write(95);
     motor7.write(95);
     motor8.write(95);
-    for (int i = 85; i <= 110; i++) {
+    for (int i = 85; i <= 100; i++) {
         motor1.write(i);
-        delay(200);
-    }
-    motor1.write(95);
-    delay(1000);
-
-    for (int i = 93; i <= 110; i++) {
         motor2.write(i);
-        delay(200);
-    }
-    motor2.write(95);
-    delay(1000);
-
-    for (int i = 93; i <= 110; i++) {
         motor3.write(i);
-        delay(200);
-    }
-    motor3.write(95);
-    delay(1000);
-
-    for (int i = 93; i <= 110; i++) {
         motor4.write(i);
         delay(200);
     }
+    motor1.write(95);
+    motor2.write(95);
+    motor3.write(95);
     motor4.write(95);
     delay(1000);
 
-    for (int i = 93; i <= 110; i++) {
+    for (int i = 93; i <= 100; i++) {
         motor5.write(i);
-        delay(200);
-    }
-    motor5.write(95);
-    delay(1000);
-    //
-    for (int i = 93; i <= 110; i++) {
         motor6.write(i);
-        delay(200);
-    }
-    motor6.write(95);
-    delay(1000);
-
-    for (int i = 93; i <= 110; i++) {
         motor7.write(i);
-        delay(200);
-    }
-    motor7.write(95);
-    delay(1000);
-
-    for (int i = 93; i <= 110; i++) {
         motor8.write(i);
         delay(200);
     }
+    motor5.write(95);
+    motor6.write(95);
+    motor7.write(95);
     motor8.write(95);
     delay(1000);
 }
