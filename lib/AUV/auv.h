@@ -6,14 +6,14 @@
  * 34 35 36 39只能输出
  */
 
-#define MOTOR_1_PIN 13
-#define MOTOR_2_PIN 12
-#define MOTOR_3_PIN 25
-#define MOTOR_4_PIN 32
-#define MOTOR_5_PIN 14
+#define MOTOR_1_PIN 14
+#define MOTOR_2_PIN 26
+#define MOTOR_3_PIN 32
+#define MOTOR_4_PIN 25
+#define MOTOR_5_PIN 13
 #define MOTOR_6_PIN 27
-#define MOTOR_7_PIN 33
-#define MOTOR_8_PIN 26
+#define MOTOR_7_PIN 12
+#define MOTOR_8_PIN 33
 
 #define MOTOR_1_CHANNEL  8
 #define MOTOR_2_CHANNEL  9
